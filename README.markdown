@@ -23,14 +23,14 @@ ex.
         {
             $doc = new Zend_Search_Lucene_Document();
             return $doc
-                ->addField(Zend_Search_Lucene_Field::unIndexed('_object_id', $this->id, 'utf-8'))
+                ->addField(Zend_Search_Lucene_Field::unIndexed('_id', $this->id, 'utf-8'))
                 ->addField(Zend_Search_Lucene_Field::Text('title', $this->title, 'utf-8'))
                 ->addField(Zend_Search_Lucene_Field::unStored('description', $this->description, 'utf-8'));
         }
 
         function getLuceneDocumentUniqueId($foo)
         {
-            return sha1($this->id.'Foo');
+            return sha1('Foo:'.$this->id);
         }
         
         // ...
@@ -44,14 +44,14 @@ or delegate
         {
             $doc = new Zend_Search_Lucene_Document();
             return $doc
-                ->addField(Zend_Search_Lucene_Field::unIndexed('_object_id', $foo->id, 'utf-8'))
+                ->addField(Zend_Search_Lucene_Field::unIndexed('_id', $foo->id, 'utf-8'))
                 ->addField(Zend_Search_Lucene_Field::Text('title', $foo->title, 'utf-8'))
                 ->addField(Zend_Search_Lucene_Field::unStored('description', $foo->description, 'utf-8'));
         }
 
         function getLuceneDocumentUniqueId($foo)
         {
-            return sha1($foo->id.'Foo');
+            return sha1('Foo:'.$foo->id);
         }
     }
 
@@ -79,11 +79,11 @@ You have to create a search query object.
 
     class FooSearchQuery implements SimpleLucene_SearchQueryInterface
     {
-        function getLuceneSearchQuery($words)
+        function getLuceneSearchQuery($phrase)
         {
             $query = new Zend_Search_Lucene_Search_Query_Boolean();
 
-            foreach (explode(' ', $words) as $part) {
+            foreach (explode(' ', $phrase) as $part) {
                 $part = "$part~";
                 
                 $pattern = new Zend_Search_Lucene_Index_Term($part, 'title');
