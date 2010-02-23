@@ -32,11 +32,11 @@
  */
 interface SimpleLucene_SearchQueryInterface
 {
-  /**
-   * zend lucene search query getter
-   *
-   * @param  string $query
-   * @return Zend_Search_Lucene_Search_Query
-   */
-  public function getLuceneSearchQuery($query);
+    /**
+     * zend lucene search query getter
+     *
+     * @param  string $query
+     * @return Zend_Search_Lucene_Search_Query
+     */
+    public function getLuceneSearchQuery($query);
 }

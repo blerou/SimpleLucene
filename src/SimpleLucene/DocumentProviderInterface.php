@@ -32,21 +32,21 @@
  */
 interface SimpleLucene_DocumentProviderInterface
 {
-  /**
-   * provides a lucene document instance
-   *
-   * if returns with false, the document won't added to index
-   *
-   * @param  mixed $subject
-   * @return Zend_Search_Lucene_Document|false
-   */
-  public function getLuceneDocument($subject);
-  
-  /**
-   * unique index getter
-   *
-   * @param  mixed $subject
-   * @return string
-   */
-  public function getLuceneDocumentUniqueId($subject);
+    /**
+     * provides a lucene document instance
+     *
+     * if returns with false, the document won't added to index
+     *
+     * @param  mixed $subject
+     * @return Zend_Search_Lucene_Document|false
+     */
+    public function getLuceneDocument($subject);
+
+    /**
+     * unique index getter
+     *
+     * @param  mixed $subject
+     * @return string
+     */
+    public function getLuceneDocumentUniqueId($subject);
 }

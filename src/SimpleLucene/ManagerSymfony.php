@@ -25,48 +25,46 @@
  */
 
 /**
- * symfony related SimpleLucene_Manager
+ * symfony related manager class
  *
  * @package SimpleLucene
  * @author  blerou
  */
 class SimpleLucene_ManagerSymfony extends SimpleLucene_Manager
 {
-  /**
-   * remove only events list
-   *
-   * @var array
-   */
-  private $deleteEvents = array('admin.delete_object');
+    /**
+     * remove only events list
+     *
+     * @var array
+     */
+    private $deleteEvents = array('admin.delete_object');
 
-  /**
-   * index updater event listener
-   *
-   * @param  sfEvent $event
-   */
-  public function listenToChanges(sfEvent $event)
-  {
-    $object = $event['object'];
-    
-    $delete_only = in_array($event->getName(), $this->deleteEvents);
-    
-    $this->removeFromIndex($object);
-    
-    if (!$delete_only)
+    /**
+     * index updater event listener
+     *
+     * @param  sfEvent $event
+     */
+    public function listenToChanges(sfEvent $event)
     {
-      $this->addToIndex($object);
+        $object = $event['object'];
+
+        $delete_only = in_array($event->getName(), $this->deleteEvents);
+
+        $this->removeFromIndex($object);
+
+        if (!$delete_only) {
+            $this->addToIndex($object);
+        }
     }
-  }
-  
-  /**
-   * add a remove only event
-   *
-   * @param  string $event_name
-   * @return SimpleLucene_Manager
-   */
-  public function addDeleteEvent($eventName)
-  {
-    $this->deleteEvents[] = $eventName;
-    return $this;
-  }
+
+    /**
+     * add a remove only event
+     *
+     * @param  string $event_name
+     * @return SimpleLucene_Manager
+     */
+    public function addDeleteEvent($eventName) {
+        $this->deleteEvents[] = $eventName;
+        return $this;
+    }
 }
