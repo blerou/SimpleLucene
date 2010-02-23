@@ -192,9 +192,8 @@ class SimpleLucene_Manager
     {
         if (!$this->index) {
             if (!file_exists($this->indexDir)) {
-                $mask = umask(0);
                 mkdir($this->indexDir, 0777, true);
-                umask($mask);
+                chmod($this->indexDir, 0777);
 
                 $this->index = Zend_Search_Lucene::create($this->indexDir);
             } elseif (!file_exists($this->indexDir.'/segments.gen')) {
